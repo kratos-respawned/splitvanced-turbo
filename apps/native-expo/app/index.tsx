@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { FormSchema } from "@repo/validators/src/formschema";
+import { SignInSchema } from "@repo/validators/src/authSchema";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 import { Button, View, YStack } from "tamagui";
 const Home = () => {
   const [name, setName] = useState("");
   const handler = () => {
-    const parsedData = FormSchema.safeParse({ name });
+    const parsedData = SignInSchema.safeParse({ name });
   };
   return (
     <YStack flex={1} backgroundColor={"$background"}>

@@ -1,80 +1,107 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as WebBrowser from "expo-web-browser";
-import { useEffect, useState } from "react";
+import { SignInSchema } from "@repo/validators/src/authSchema";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   Checkbox,
   Form,
-  H2,
   H3,
   Input,
   Label,
   Text,
-  View,
   XStack,
   YStack,
 } from "tamagui";
-import { useRouter } from "expo-router";
-import { Keyboard, Pressable } from "react-native";
-import { FontAwesome, FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { Link, useRouter } from "expo-router";
+import { Keyboard, Pressable, TextInput } from "react-native";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 const SignInScreen = () => {
-  useEffect(() => {
-    WebBrowser.warmUpAsync();
-    return () => {
-      WebBrowser.coolDownAsync();
-    };
-  }, []);
-  const login = async () => {
-    const resp = await WebBrowser.openAuthSessionAsync("https://google.com");
-    console.log(resp);
-  };
+  const { control, handleSubmit, formState } = useForm<SignInSchema>({
+    resolver: zodResolver(SignInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const onSubmit = handleSubmit((data: SignInSchema) => {
+    console.log(data);
+  });
   return (
     <YStack px={"$3"} flex={1} backgroundColor={"$background"}>
       <Pressable style={{ flex: 1 }} onPress={Keyboard.dismiss}>
         <SafeAreaView style={{ flex: 1 }}>
-          <YStack flex={1}>
+          <YStack flex={1} pt={"$3"}>
             <XStack>
               <Pressable onPress={() => router.canGoBack() && router.back()}>
                 <Ionicons name="arrow-back-sharp" size={24} color={"white"} />
               </Pressable>
             </XStack>
             <H3 mt="$4">Welcome back</H3>
-            <Form
-              onSubmit={() => {
-                console.log("hello");
-              }}
-            >
-              <YStack>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  focusStyle={{ borderColor: "$green10Dark" }}
-                  placeholder="Email"
-                />
-              </YStack>
-              <YStack>
-                <Label>Password</Label>
-                <Input
-                  focusStyle={{ borderColor: "$green10Dark" }}
-                  placeholder="Password"
-                  secureTextEntry={!showPassword}
-                />
-              </YStack>
+            <Form onSubmit={onSubmit}>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <YStack>
+                    <Label>Email</Label>
+                    <Input
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      focusStyle={{
+                        borderColor: formState.errors.email
+                          ? "red"
+                          : "$green10Dark",
+                      }}
+                      placeholder="Email"
+                    />
+                    <Text color={"red"}>{formState.errors.email?.message}</Text>
+                  </YStack>
+                )}
+              />
+
+              <Controller
+                name="password"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <YStack>
+                    <Label>Password</Label>
+                    <Input
+                      ref={ref}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      focusStyle={{
+                        borderColor: formState.errors.password
+                          ? "red"
+                          : "$green10Dark",
+                      }}
+                      placeholder="Password"
+                      secureTextEntry={!showPassword}
+                    />
+                    <Text color={"red"}>
+                      {formState.errors.password?.message}
+                    </Text>
+                  </YStack>
+                )}
+              />
               <XStack ai="center" jc={"flex-start"} gap={"$3"}>
                 <Checkbox
+                  value={String(showPassword)}
                   focusStyle={{ borderColor: "$green10Dark" }}
-                  id="checkbox-showpass"
-                  onCheckedChange={(checked) =>
-                    setShowPassword(Boolean(checked))
-                  }
+                  onCheckedChange={() => setShowPassword(!showPassword)}
                 >
-                  <Checkbox.Indicator>
+                  {showPassword && (
                     <FontAwesome6 color="#3db178" name="check" />
-                  </Checkbox.Indicator>
+                  )}
                 </Checkbox>
-                <Label htmlFor="checkbox-showpass">Show Password</Label>
+                <Label onPress={() => setShowPassword(!showPassword)}>
+                  Show Password
+                </Label>
               </XStack>
               <Form.Trigger asChild>
                 <Button
@@ -86,6 +113,11 @@ const SignInScreen = () => {
                 </Button>
               </Form.Trigger>
             </Form>
+            <Link href={"/signup"} asChild>
+              <Text color={"white"} textAlign="center" mt={"$3"}>
+                Don't have an account? Sign up
+              </Text>
+            </Link>
           </YStack>
         </SafeAreaView>
       </Pressable>
