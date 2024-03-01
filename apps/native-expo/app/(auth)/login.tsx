@@ -1,11 +1,22 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
-import { useEffect } from "react";
-import { Button, H2, H3, View, XStack, YStack } from "tamagui";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Checkbox,
+  Form,
+  H2,
+  H3,
+  Input,
+  Label,
+  Text,
+  View,
+  XStack,
+  YStack,
+} from "tamagui";
 import { useRouter } from "expo-router";
-import { Pressable } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-
+import { Keyboard, Pressable } from "react-native";
+import { FontAwesome, FontAwesome6, Ionicons } from "@expo/vector-icons";
 const SignInScreen = () => {
   useEffect(() => {
     WebBrowser.warmUpAsync();
@@ -18,31 +29,66 @@ const SignInScreen = () => {
     console.log(resp);
   };
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <YStack px={"$3"} flex={1} backgroundColor={"$background"}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <YStack flex={1}>
-          <XStack>
-            <Pressable onPress={() => router.canGoBack() && router.back()}>
-              <FontAwesome name="arrow-left" size={24} color={"white"} />
-            </Pressable>
-          </XStack>
-          <H3>Welcome back</H3>
-          <View flex={1} jc="center" ai={"center"} gap={"$3"}>
-            <Button
-              backgroundColor={"$backgroundFocus"}
-              width={"$20"}
-              mx="auto"
-              onPress={login}
+      <Pressable style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <YStack flex={1}>
+            <XStack>
+              <Pressable onPress={() => router.canGoBack() && router.back()}>
+                <Ionicons name="arrow-back-sharp" size={24} color={"white"} />
+              </Pressable>
+            </XStack>
+            <H3 mt="$4">Welcome back</H3>
+            <Form
+              onSubmit={() => {
+                console.log("hello");
+              }}
             >
-              Sign in with Google
-            </Button>
-            <Button onPress={() => router.canGoBack() && router.back()}>
-              Go Back
-            </Button>
-          </View>
-        </YStack>
-      </SafeAreaView>
+              <YStack>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  focusStyle={{ borderColor: "$green10Dark" }}
+                  placeholder="Email"
+                />
+              </YStack>
+              <YStack>
+                <Label>Password</Label>
+                <Input
+                  focusStyle={{ borderColor: "$green10Dark" }}
+                  placeholder="Password"
+                  secureTextEntry={!showPassword}
+                />
+              </YStack>
+              <XStack ai="center" jc={"flex-start"} gap={"$3"}>
+                <Checkbox
+                  focusStyle={{ borderColor: "$green10Dark" }}
+                  id="checkbox-showpass"
+                  onCheckedChange={(checked) =>
+                    setShowPassword(Boolean(checked))
+                  }
+                >
+                  <Checkbox.Indicator>
+                    <FontAwesome6 color="#3db178" name="check" />
+                  </Checkbox.Indicator>
+                </Checkbox>
+                <Label htmlFor="checkbox-showpass">Show Password</Label>
+              </XStack>
+              <Form.Trigger asChild>
+                <Button
+                  mt={"$4"}
+                  elevationAndroid={5}
+                  backgroundColor={"$green10Dark"}
+                >
+                  Submit
+                </Button>
+              </Form.Trigger>
+            </Form>
+          </YStack>
+        </SafeAreaView>
+      </Pressable>
     </YStack>
   );
 };
