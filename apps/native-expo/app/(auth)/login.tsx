@@ -1,10 +1,10 @@
-import { FontAwesome } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import { Button, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect } from "react";
-import { useAuthRequest } from "expo-auth-session";
+import { Button, H2, H3, View, XStack, YStack } from "tamagui";
+import { useRouter } from "expo-router";
+import { Pressable } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
 const SignInScreen = () => {
   useEffect(() => {
@@ -13,15 +13,37 @@ const SignInScreen = () => {
       WebBrowser.coolDownAsync();
     };
   }, []);
-  const resp = WebBrowser.openAuthSessionAsync("https:// ) ");
+  const login = async () => {
+    const resp = await WebBrowser.openAuthSessionAsync("https://google.com");
+    console.log(resp);
+  };
+  const router = useRouter();
   return (
-    <View className="justify-center items-center flex-1  ">
+    <YStack px={"$3"} flex={1} backgroundColor={"$background"}>
       <SafeAreaView style={{ flex: 1 }}>
-        <View className="justify-center items-center flex-1">
-          <Button title="Sign in with Google" onPress={() => {}} />
-        </View>
+        <YStack flex={1}>
+          <XStack>
+            <Pressable onPress={() => router.canGoBack() && router.back()}>
+              <FontAwesome name="arrow-left" size={24} color={"white"} />
+            </Pressable>
+          </XStack>
+          <H3>Welcome back</H3>
+          <View flex={1} jc="center" ai={"center"} gap={"$3"}>
+            <Button
+              backgroundColor={"$backgroundFocus"}
+              width={"$20"}
+              mx="auto"
+              onPress={login}
+            >
+              Sign in with Google
+            </Button>
+            <Button onPress={() => router.canGoBack() && router.back()}>
+              Go Back
+            </Button>
+          </View>
+        </YStack>
       </SafeAreaView>
-    </View>
+    </YStack>
   );
 };
 export default SignInScreen;

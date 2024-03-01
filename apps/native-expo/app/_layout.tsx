@@ -1,24 +1,33 @@
-import { Stack } from "expo-router";
-import "../global.css";
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+import { TamaguiProvider } from "tamagui";
 
-export default function RootLayout() {
+import config from "../tamagui.config";
+import { StatusBar } from "expo-status-bar";
+
+export default function Layout() {
+  const [loaded] = useFonts({
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+  });
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) return null;
+
   return (
-    <Stack
-      screenOptions={{ headerTransparent: true, headerTitleAlign: "center" }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{
-          title: "Home",
-          // headerTitleStyle: { color: "white" },
-        }}
-      />
-      <Stack.Screen
-        name="(auth)/signup"
-        options={{ title: "Create Account" }}
-      />
-      <Stack.Screen name="(auth)/login" options={{ title: "Sign In" }} />
-      <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-    </Stack>
+    <TamaguiProvider config={config}>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false, headerTitleAlign: "center" }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(auth)/login" />
+        <Stack.Screen name="(auth)/signup" />
+      </Stack>
+    </TamaguiProvider>
   );
 }
