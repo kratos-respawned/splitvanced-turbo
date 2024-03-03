@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Rethink_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@repo/tw-class/tw-utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Rethink_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "block",
+  adjustFontFallback: false,
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className)}>{children}</body>
+      <body className={cn("dark", inter.className)}>{children}</body>
     </html>
   );
 }

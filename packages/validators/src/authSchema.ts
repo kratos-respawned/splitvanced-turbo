@@ -15,9 +15,35 @@ export const SignUpSchema = z
   });
 
 export type SignUpSchema = z.infer<typeof SignUpSchema>;
+export const SignUpResponse = z
+  .object({
+    status: z.enum(["400", "500"]),
+    message: z.string(),
+  })
+  .or(
+    z.object({
+      status: z.enum(["403"]),
+    })
+  );
+
+export type SignUpResponse = z.infer<typeof SignUpResponse>;
 
 export const SignInSchema = z.object({
   email: z.string().email().max(50, mailErr),
   password: z.string().min(8, passwordErr).max(22, passwordErr),
 });
 export type SignInSchema = z.infer<typeof SignInSchema>;
+
+export const SignInResponse = z
+  .object({
+    status: z.enum(["400", "403", "500"]),
+    message: z.string(),
+  })
+  .or(
+    z.object({
+      status: z.enum(["200"]),
+      token: z.string().optional(),
+    })
+  );
+
+export type SignInResponse = z.infer<typeof SignInResponse>;
