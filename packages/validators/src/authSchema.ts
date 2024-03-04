@@ -23,6 +23,7 @@ export const SignUpResponse = z
   .or(
     z.object({
       status: z.enum(["403"]),
+      token: z.string(),
     })
   );
 

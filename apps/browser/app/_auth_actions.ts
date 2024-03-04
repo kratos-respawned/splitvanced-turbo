@@ -16,6 +16,7 @@ export const Login = async (unsafe: unknown): Promise<SignInResponse> => {
       message: "Invalid Request",
     };
   const { data } = safeData;
+  // return Response(data);
   try {
     const usr = await db
       .select()
@@ -49,7 +50,7 @@ export const SignUp = async (unsafe: unknown): Promise<SignUpResponse> => {
   if (!safeData.success) {
     return {
       status: "400",
-      message: "Invalid Request",
+      message: "Invalid Request Body",
     };
   }
   const { data } = safeData;
@@ -64,6 +65,7 @@ export const SignUp = async (unsafe: unknown): Promise<SignUpResponse> => {
     console.log(NewUser);
     return {
       status: "403",
+      token: "token",
     };
   } catch (e) {
     if (e instanceof DrizzleError) {
@@ -72,7 +74,6 @@ export const SignUp = async (unsafe: unknown): Promise<SignUpResponse> => {
         message: e.message,
       };
     }
-
     if (
       e &&
       typeof e === "object" &&
