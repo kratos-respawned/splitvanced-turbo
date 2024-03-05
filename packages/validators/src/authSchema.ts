@@ -14,7 +14,6 @@ export const SignUpSchema = z
     path: ["confirmPassword"],
   });
 
-export type SignUpSchema = z.infer<typeof SignUpSchema>;
 export const SignUpResponse = z
   .object({
     status: z.enum(["400", "500"]),
@@ -27,14 +26,10 @@ export const SignUpResponse = z
     })
   );
 
-export type SignUpResponse = z.infer<typeof SignUpResponse>;
-
 export const SignInSchema = z.object({
   email: z.string().email().max(50, mailErr),
   password: z.string().min(8, passwordErr).max(22, passwordErr),
 });
-export type SignInSchema = z.infer<typeof SignInSchema>;
-
 export const SignInResponse = z
   .object({
     status: z.enum(["400", "403", "500"]),
@@ -47,4 +42,23 @@ export const SignInResponse = z
     })
   );
 
+export const OPTSchema = z.object({
+  otp: z.string().length(4, "OTP must be 4 characters"),
+});
+export const OTPResponse = z
+  .object({
+    status: z.enum(["400", "404", "401", "500"]),
+    message: z.string(),
+  })
+  .or(
+    z.object({
+      status: z.enum(["200"]),
+      token: z.string().optional(),
+    })
+  );
+export type OPTSchema = z.infer<typeof OPTSchema>;
+export type OTPResponse = z.infer<typeof OTPResponse>;
+export type SignUpSchema = z.infer<typeof SignUpSchema>;
+export type SignUpResponse = z.infer<typeof SignUpResponse>;
+export type SignInSchema = z.infer<typeof SignInSchema>;
 export type SignInResponse = z.infer<typeof SignInResponse>;

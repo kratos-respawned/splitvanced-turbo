@@ -12,12 +12,28 @@ const Home = () => {
     <YStack flex={1} backgroundColor={"$background"}>
       <SafeAreaView style={{ flex: 1 }}>
         <YStack flex={1} jc="center" ai={"center"} gap={"$3"}>
-          <Link href={"/login"} asChild>
-            <Button width={"$20"} mx="auto">
-              Sign in with Google
+          <Link href={"/(auth)/login"} asChild>
+            <Button
+              height={"$5"}
+              ai={"center"}
+              jc={"center"}
+              fontSize={"$5"}
+              mx="auto"
+            >
+              Sign in
             </Button>
           </Link>
-          <Button>Sign Up</Button>
+          <Link href="/(auth)/signup" asChild>
+            <Button
+              height={"$5"}
+              ai={"center"}
+              jc={"center"}
+              fontSize={"$5"}
+              mx="auto"
+            >
+              Create Account
+            </Button>
+          </Link>
         </YStack>
       </SafeAreaView>
     </YStack>

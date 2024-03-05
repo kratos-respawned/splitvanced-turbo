@@ -18,9 +18,9 @@ const animations = createAnimations({
     stiffness: 60,
   },
   quick: {
-    damping: 20,
-    mass: 1.2,
-    stiffness: 250,
+    damping: 200,
+    mass: 1,
+    stiffness: 500,
     type: "spring",
   },
 });

@@ -1,8 +1,8 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { SignUpSchema } from "@repo/validators/src/authSchema";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Button,
   Checkbox,
@@ -14,40 +14,13 @@ import {
   XStack,
   YStack,
 } from "tamagui";
-import { Link, useRouter } from "expo-router";
-import { Keyboard, Pressable, TouchableWithoutFeedback } from "react-native";
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { signup } from "@/rpc/signup";
-const SignUpScreen = () => {
-  const router = useRouter();
-  return (
-    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
-      <YStack px={"$3"} flex={1} backgroundColor={"$background"}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <KeyboardAwareScrollView
-            scrollsToTop={true}
-            showsVerticalScrollIndicator={false}
-            style={{ flex: 1 }}
-          >
-            <YStack flex={1} pt={"$3"}>
-              <XStack>
-                <Pressable onPress={() => router.canGoBack() && router.back()}>
-                  <Ionicons name="arrow-back-sharp" size={24} color={"white"} />
-                </Pressable>
-              </XStack>
-              {/* <SignupForm /> */}
-              <OTPForm />
-            </YStack>
-          </KeyboardAwareScrollView>
-        </SafeAreaView>
-      </YStack>
-    </TouchableWithoutFeedback>
-  );
-};
-export default SignUpScreen;
+import { Link, router } from "expo-router";
 
-const SignupForm = () => {
+import { FontAwesome6 } from "@expo/vector-icons";
+
+import { signup } from "@/rpc/signup";
+
+const SignUpScreen = () => {
   const { control, handleSubmit, formState } = useForm<SignUpSchema>({
     resolver: zodResolver(SignUpSchema),
     defaultValues: {
@@ -57,11 +30,18 @@ const SignupForm = () => {
       confirmPassword: "",
     },
   });
+
+  const SignUpFlow = async (data: SignUpSchema) => {
+    const resp = await signup(data);
+    if (resp.status === "403") {
+      router.push("/(auth)/otp");
+    }
+  };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <>
+    <YStack flex={1} backgroundColor={"$background"}>
       <H3 mt="$4">Create an account</H3>
-      <Form onSubmit={handleSubmit(signup)}>
+      <Form onSubmit={handleSubmit(SignUpFlow)}>
         <Controller
           name="name"
           control={control}
@@ -169,29 +149,24 @@ const SignupForm = () => {
             Show Password
           </Label>
         </XStack>
-        <Form.Trigger asChild>
-          <Button
-            mt={"$4"}
-            elevationAndroid={5}
-            backgroundColor={"$green10Dark"}
-          >
-            Submit
-          </Button>
-        </Form.Trigger>
+        {/* <Form.Trigger asChild> */}
+        <Button
+          onPress={() => router.push("/(auth)/otp")}
+          mt={"$4"}
+          elevationAndroid={5}
+          backgroundColor={"$green10Dark"}
+        >
+          Submit
+        </Button>
+        {/* </Form.Trigger> */}
       </Form>
-      <Link href={"/login"} asChild>
+      <Link replace href={"/(auth)/login"} asChild>
         <Text color={"white"} textAlign="center" mt={"$3"}>
           Already have an account? Sign in
         </Text>
       </Link>
-    </>
+    </YStack>
   );
 };
 
-const OTPForm = () => {
-  return (
-    <>
-      <H3 mt="$4">Verify your account</H3>
-    </>
-  );
-};
+export default SignUpScreen;

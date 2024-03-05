@@ -16,7 +16,6 @@ export const Login = async (unsafe: unknown): Promise<SignInResponse> => {
       message: "Invalid Request",
     };
   const { data } = safeData;
-  // return Response(data);
   try {
     const usr = await db
       .select()

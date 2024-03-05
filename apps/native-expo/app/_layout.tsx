@@ -25,8 +25,7 @@ export default function Layout() {
       <StatusBar style="light" />
       <Stack screenOptions={{ headerShown: false, headerTitleAlign: "center" }}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="(auth)/login" />
-        <Stack.Screen name="(auth)/signup" />
+        <Stack.Screen name="(auth)" />
       </Stack>
     </TamaguiProvider>
   );
