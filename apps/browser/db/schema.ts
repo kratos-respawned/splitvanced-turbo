@@ -20,7 +20,7 @@ export const user = pgTable("user", {
   verified: boolean("verified").notNull().default(false),
   role: userRole("role").notNull().default("user"),
   otp: varchar("otp"),
-  otp_expiry: date("otp_expiry"),
+  otp_expiry: date("otp_expiry").defaultNow(),
 });
 
 export type User = typeof user.$inferSelect;

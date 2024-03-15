@@ -1,0 +1,1 @@
+ALTER TABLE "user" ALTER COLUMN "otp_expiry" SET DEFAULT now();

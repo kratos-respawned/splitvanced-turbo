@@ -60,6 +60,7 @@ export const SignUp = async (unsafe: unknown): Promise<SignUpResponse> => {
       email: data.email,
       otp: Math.floor(100000 + Math.random() * 900000).toString(),
       verified: false,
+      otp_expiry: new Date(Date.now() + 60000).toISOString(),
     });
     console.log(NewUser);
     return {
