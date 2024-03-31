@@ -3,9 +3,9 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
-    RESEND_KEY: z.string().min(1),
-    VERCEL_URL: z.string().url(),
+    DATABASE_URL: z.string().url().optional(),
+    RESEND_KEY: z.string().min(1).optional(),
+    VERCEL_URL: z.string().url().optional(),
   },
   client: {
     NEXT_PUBLIC_TEST: z.string().min(1),
