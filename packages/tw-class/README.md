@@ -1,1 +1,1 @@
-# `@repo/tw-class`
+# `@splitvanced/tw-class`

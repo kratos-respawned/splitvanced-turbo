@@ -12,6 +12,6 @@
   },
   "aliases": {
     "components": "@/components",
-    "utils": "@repo/tw-class/tw-utils"
+    "utils": "@splitvanced/tw-class/tw-utils"
   }
 }

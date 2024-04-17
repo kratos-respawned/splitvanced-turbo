@@ -1,4 +1,4 @@
-import { SignInSchema } from "@repo/validators/src/authSchema";
+import { SignInSchema } from "@splitvanced/validators/src/authSchema";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

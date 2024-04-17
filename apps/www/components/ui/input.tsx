@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "@repo/tw-class/tw-utils"
+import { cn } from "@splitvanced/tw-class/tw-utils"
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}

@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { OPTSchema } from "@repo/validators/src/authSchema";
+import { OPTSchema } from "@splitvanced/validators/src/authSchema";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert, TextInput } from "react-native";

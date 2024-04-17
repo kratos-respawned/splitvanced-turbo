@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
 import { Rethink_Sans } from "next/font/google";
+import { Montserrat } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import { cn } from "@repo/tw-class/tw-utils";
+import { cn } from "@splitvanced/tw-class/tw-utils";
 
-const inter = Rethink_Sans({
+const sans = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   display: "block",
+  variable:"--font-text",
+  adjustFontFallback: false,
+});
+
+const heading=Rethink_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "block",
+  variable:"--font-heading",
   adjustFontFallback: false,
 });
 
@@ -22,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("dark", inter.className)}>{children}</body>
+      <body className={cn("dark", sans.className,sans.variable,heading.variable)}>{children}</body>
     </html>
   );
 }

@@ -1,4 +1,4 @@
-import { OPTSchema, OTPResponse } from "@repo/validators/authValidator";
+import { OPTSchema, OTPResponse } from "@splitvanced/validators/authValidator";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -12,6 +12,16 @@ export async function POST(req: Request) {
     return NextResponse.json(response);
   }
   const { data } = parsedData;
+  if(data.otp==="1234"){
+    response={
+      status:"200",
+    }
+  }else{
+    response={
+      status:"401",
+      message:"Invalid OTP"
+    }
+  }
 
-  return NextResponse.json({ message: "" });
+  return NextResponse.json(response);
 }

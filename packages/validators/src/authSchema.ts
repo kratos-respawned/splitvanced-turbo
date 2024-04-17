@@ -47,6 +47,7 @@ export const OPTSchema = z.object({
 });
 export const OTPResponse = z
   .object({
+    // 400: Invalid Body, 404: OTP Expired, 401: Invalid OTP, 500: Internal Server Error
     status: z.enum(["400", "404", "401", "500"]),
     message: z.string(),
   })

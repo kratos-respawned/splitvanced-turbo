@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SignInSchema } from "@repo/validators/src/authSchema";
+import { SignInSchema } from "@splitvanced/validators/src/authSchema";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
 import { Button, View, YStack } from "tamagui";

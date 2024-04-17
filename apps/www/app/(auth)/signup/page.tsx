@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpSchema } from "@repo/validators/authValidator";
+import { SignUpSchema } from "@splitvanced/validators/authValidator";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 const SignUpPage = () => {
@@ -131,7 +131,8 @@ const SignUpPage = () => {
           </Link>
         </CardFooter>
       </Card>
+      
     </main>
   );
 };
-export default SignUpPage;
+export default SignUpPage;  

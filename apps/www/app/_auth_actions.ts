@@ -6,7 +6,7 @@ import {
   SignInSchema,
   SignUpResponse,
   SignUpSchema,
-} from "@repo/validators/authValidator";
+} from "@splitvanced/validators/authValidator";
 import { DrizzleError, and, eq } from "drizzle-orm";
 export const Login = async (unsafe: unknown): Promise<SignInResponse> => {
   const safeData = SignInSchema.safeParse(unsafe);
@@ -58,7 +58,9 @@ export const SignUp = async (unsafe: unknown): Promise<SignUpResponse> => {
       name: data.name,
       password: data.password,
       email: data.email,
-      otp: Math.floor(100000 + Math.random() * 900000).toString(),
+      // otp: Math.floor(100000 + Math.random() * 900000).toString(),
+      // TODO : Remove this line and uncomment the above line
+      otp: "1234",
       verified: false,
       otp_expiry: new Date(Date.now() + 60000).toISOString(),
     });

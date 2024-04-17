@@ -1,6 +1,6 @@
 import { save } from "@/lib/secureStorage";
 import { server } from "@/lib/server";
-import { SignUpResponse, SignUpSchema } from "@repo/validators/src/authSchema";
+import { SignUpResponse, SignUpSchema } from "@splitvanced/validators/src/authSchema";
 import {} from "expo-secure-store";
 export const signup = async (data: SignUpSchema): Promise<SignUpResponse> => {
   try {

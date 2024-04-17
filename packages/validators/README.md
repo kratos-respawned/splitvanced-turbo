@@ -1,1 +1,1 @@
-# `@repo/validators`
+# `@splitvanced/validators`

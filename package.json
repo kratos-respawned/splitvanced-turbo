@@ -1,15 +1,15 @@
 {
-  "name": "expo-notes-app",
+  "name": "splitvanced",
   "private": true,
-  "scripts": {
+    "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@splitvanced/eslint-config": "*",
+    "@splitvanced/typescript-config": "*",
     "prettier": "^3.1.1",
     "turbo": "latest"
   },
