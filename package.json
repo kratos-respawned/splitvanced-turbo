@@ -1,7 +1,7 @@
 {
   "name": "splitvanced",
   "private": true,
-    "scripts": {
+  "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -11,7 +11,7 @@
     "@splitvanced/eslint-config": "*",
     "@splitvanced/typescript-config": "*",
     "prettier": "^3.1.1",
-    "turbo": "latest"
+    "turbo": "^1.13.2"
   },
   "engines": {
     "node": ">=18"
