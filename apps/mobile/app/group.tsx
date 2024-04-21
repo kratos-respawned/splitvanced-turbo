@@ -4,7 +4,16 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { ScrollView, View, XStack, YStack } from "tamagui";
+import {
+  Button,
+  H3,
+  H4,
+  ScrollView,
+  Text,
+  View,
+  XStack,
+  YStack,
+} from "tamagui";
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable } from "react-native";
 const Group = () => {
@@ -21,7 +30,41 @@ const Group = () => {
           }}
         />
         <ScrollView pt={"$2"} px={"$4"}>
-          <XStack jc={"space-between"} ai={"center"} gap={"$3"}></XStack>
+          <YStack jc={"space-between"}>
+            <H3>162</H3>
+            <Text fontSize={"$5"} col={"$orange10Dark"} mt="$2">
+              You owe ₹908.00 overall
+            </Text>
+            <YStack jc={"space-between"} gap="$2" mt="$3">
+              <Text fontSize={"$4"}>
+                You owe Gaurav <Text col={"$orange10Dark"}> ₹908.00 </Text>
+              </Text>
+              <Text fontSize={"$4"}>
+                You owe Harsh <Text col={"$orange10Dark"}> ₹908.00 </Text>
+              </Text>
+              <Text fontSize={"$4"}>Plus 3 other balances</Text>
+            </YStack>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              mt="$4"
+            >
+              <XStack gap="$2">
+                <Button size={"$4"} bg="$red9Dark">
+                  <Text fontSize={"$4"}>Settle up</Text>
+                </Button>
+                <Button size={"$4"}>
+                  <Text fontSize={"$4"}>Balances</Text>
+                </Button>
+                <Button size={"$4"}>
+                  <Text fontSize={"$4"}>Totals</Text>
+                </Button>
+                <Button size={"$4"}>
+                  <Text fontSize={"$4"}>Export</Text>
+                </Button>
+              </XStack>
+            </ScrollView>
+          </YStack>
         </ScrollView>
       </SafeAreaView>
     </YStack>
@@ -41,10 +84,10 @@ const Header = () => {
       gap="$5"
     >
       <Pressable onPress={router.back}>
-        <Ionicons name="arrow-back" size={30} color="white" />
+        <Ionicons name="arrow-back" size={25} color="white" />
       </Pressable>
       <Pressable>
-        <Ionicons name="settings-outline" size={30} color="white" />
+        <Ionicons name="settings-outline" size={25} color="white" />
       </Pressable>
     </XStack>
   );

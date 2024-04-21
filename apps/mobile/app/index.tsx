@@ -10,13 +10,14 @@ import { Button, ScrollView, Text, XStack, YStack } from "tamagui";
 import { Pressable } from "react-native";
 import { GroupCard } from "@/components/group-card";
 import { StatusBar } from "expo-status-bar";
+import { GroupSettingsPopover } from "@/components/group-settings-popover";
 const Home = () => {
   // const [name, setName] = useState("");
   
   return (
     <YStack flex={1} backgroundColor={"$background"}>
       <StatusBar style="light" />
-      <SafeAreaView style={{ flex: 1 }}>
+      
         <Stack.Screen
           options={{
             headerShown: true,
@@ -25,14 +26,12 @@ const Home = () => {
             headerShadowVisible: true,
           }}
         />
-        <ScrollView pt={"$2"} px={"$4"}>
+        <ScrollView pt={"$4"} px={"$4"}>
           <XStack jc={"space-between"} ai={"center"} gap={"$3"}>
             <Text fontSize={"$7"}>
               Overall, you owe <Text color={"$orange9Dark"}>₹512.49</Text>
             </Text>
-            <Pressable>
-              <AntDesign name="setting" size={24} color="white" />
-            </Pressable>
+            <GroupSettingsPopover/>
           </XStack>
           <YStack pb="$15" gap="$3" mt="$5">
             <GroupCard/>
@@ -54,7 +53,7 @@ const Home = () => {
             </Button>
           </YStack>
         </ScrollView>
-      </SafeAreaView>
+      
     </YStack>
   );
 };
@@ -64,6 +63,10 @@ const Header = () => {
   return (
     <XStack
       px="$4"
+      borderBottomColor={"$borderColor"}
+      borderBottomWidth={1}
+      pb="$4"
+      elevation={3}
       style={{ paddingTop: inset.top + 20 }}
       jc={"flex-end"}
       bg="$background"
