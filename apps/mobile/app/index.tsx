@@ -16,7 +16,7 @@ const Home = () => {
   
   return (
     <YStack flex={1} backgroundColor={"$background"}>
-      <StatusBar style="light" />
+      <StatusBar style="inverted" />
       
         <Stack.Screen
           options={{

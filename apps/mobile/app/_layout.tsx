@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { TamaguiProvider, YStack } from "tamagui";
 
 import config from "../tamagui.config";
-import { StatusBar } from "expo-status-bar";
+
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -23,8 +23,7 @@ export default function Layout() {
   return (
     <TamaguiProvider  config={config}>
       <YStack flex={1} bg="$background">
-      <StatusBar style="light" />
-      <Stack screenOptions={{ headerShown: false, headerTitleAlign: "center" }}>
+      <Stack screenOptions={{ headerShown: false, headerTitleAlign: "left" }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(auth)" />
       </Stack>
