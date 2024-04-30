@@ -25,6 +25,9 @@
       },
       "package": "com.kratoss.splitvanced"
     },
+    "androidStatusBar": {
+      "barStyle": "light-content"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",

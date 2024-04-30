@@ -11,8 +11,8 @@ export const GroupSettingsPopover = () => {
         </Pressable>
       </Popover.Trigger>
 
-      <Adapt when="sm" platform="native">
-        <Popover.Sheet snapPoints={[50]} modal dismissOnSnapToBottom>
+      <Adapt >
+        <Popover.Sheet  unmountChildrenWhenHidden snapPoints={[50]} modal dismissOnSnapToBottom>
           <Popover.Sheet.Frame padding="$4">
             <RadioGroup
               aria-labelledby="Select one item"
