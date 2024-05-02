@@ -1,4 +1,4 @@
-import { Stack, router } from "expo-router";
+import { Link, Stack, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
   SafeAreaView,
@@ -79,6 +79,14 @@ const Group = () => {
           />
         </YStack>
       </ScrollView>
+      <XStack pos={"absolute"}  bottom="$4" right="$3" >
+          <Link href={"/add-expense"} asChild>
+          <Button  elevationAndroid={50} animation={"quick"}  backgroundColor={"$green9Dark"} pressStyle={{
+            scale: 0.9,  
+          }}
+          >Add Expense</Button>
+          </Link>
+        </XStack>
     </YStack>
   );
 };

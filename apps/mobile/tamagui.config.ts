@@ -1,4 +1,4 @@
-import { createAnimations } from "@tamagui/animations-react-native";
+import { createAnimations } from "@tamagui/animations-moti";
 import { createInterFont } from "@tamagui/font-inter";
 import { createMedia } from "@tamagui/react-native-media-driver";
 import { shorthands } from "@tamagui/shorthands";
@@ -9,6 +9,12 @@ const animations = createAnimations({
   bouncy: {
     damping: 10,
     mass: 0.9,
+    stiffness: 100,
+    type: "spring",
+  },
+  springy:{
+    damping: 20,
+    mass: 1,
     stiffness: 100,
     type: "spring",
   },

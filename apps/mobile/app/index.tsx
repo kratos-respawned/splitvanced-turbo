@@ -6,7 +6,7 @@ import {
 } from "react-native-safe-area-context";
 import { Link, Stack } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
-import { Button, ScrollView, Text, XStack, YStack } from "tamagui";
+import { Button, ScrollView, Text, View, XStack, YStack } from "tamagui";
 import { Pressable } from "react-native";
 import { GroupCard } from "@/components/group-card";
 import { StatusBar } from "expo-status-bar";
@@ -50,6 +50,7 @@ const Home = () => {
           <Button borderColor={"$green10Dark"}>Show 3 settled-up groups</Button>
         </YStack>
       </ScrollView>
+        
     </YStack>
   );
 };
