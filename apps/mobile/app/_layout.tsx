@@ -23,10 +23,7 @@ export default function Layout() {
   return (
     <TamaguiProvider  config={config}>
       <YStack flex={1} bg="$background">
-      <Stack screenOptions={{ headerShown: false, headerTitleAlign: "left" }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(auth)" />
-      </Stack>
+      <Stack screenOptions={{ headerShown: true, headerBackground:()=><YStack bg={"$background"} /> , headerTitleAlign: "left", headerTitle:"", headerTintColor: "white",  }}/>
       </YStack>
     </TamaguiProvider>
   );

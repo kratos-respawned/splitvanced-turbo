@@ -22553,6 +22553,12 @@
           "stiffness": 100,
           "type": "spring"
         },
+        "springy": {
+          "damping": 20,
+          "mass": 1,
+          "stiffness": 100,
+          "type": "spring"
+        },
         "lazy": {
           "damping": 20,
           "type": "spring",

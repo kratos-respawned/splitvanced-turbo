@@ -19,6 +19,8 @@ import { Link, router } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 import { signup } from "@/rpc/signup";
+import { TouchableWithoutFeedback, Keyboard } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const SignUpScreen = () => {
   const { control, handleSubmit, formState } = useForm<SignUpSchema>({
@@ -39,7 +41,14 @@ const SignUpScreen = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <YStack flex={1} backgroundColor={"$background"}>
+    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+    <YStack px={"$3"} flex={1} backgroundColor={"$background"}>
+      <KeyboardAwareScrollView
+        scrollsToTop
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+      >
+        <YStack flex={1} backgroundColor={"$background"}>
       <H3 mt="$4">Create an account</H3>
       <Form onSubmit={handleSubmit(SignUpFlow)}>
         <Controller
@@ -160,12 +169,15 @@ const SignUpScreen = () => {
         </Button>
         {/* </Form.Trigger> */}
       </Form>
-      <Link replace href={"/(auth)/login"} asChild>
+      <Link  href={"/(auth)/login"} asChild >
         <Text color={"white"} textAlign="center" mt={"$3"}>
           Already have an account? Sign in
         </Text>
       </Link>
     </YStack>
+    </KeyboardAwareScrollView>
+    </YStack>
+    </TouchableWithoutFeedback>
   );
 };
 

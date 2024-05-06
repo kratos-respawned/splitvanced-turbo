@@ -1,12 +1,6 @@
-import { useState } from "react";
-import { SignInSchema } from "@splitvanced/validators/src/authSchema";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
 import { Link, Stack } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
-import { Button, ScrollView, Text, View, XStack, YStack } from "tamagui";
+import { Button, ScrollView, Text,  XStack, YStack } from "tamagui";
 import { Pressable } from "react-native";
 import { GroupCard } from "@/components/group-card";
 import { StatusBar } from "expo-status-bar";
@@ -19,8 +13,23 @@ const Home = () => {
         options={{
           headerShown: true,
           headerTitle: "",
-          header: () => <Header />,
+          headerBackground: () => <YStack bg="$background"  />,
           headerShadowVisible: true,
+          headerRight: () => (
+            <XStack
+              gap="$5"
+            >
+              <Pressable>
+                <AntDesign name="search1" size={24} color="white" />
+              </Pressable>
+              <Pressable>
+                <AntDesign name="addusergroup" size={24} color="white" />
+              </Pressable>
+              <Link href={"/login"} asChild>
+                <AntDesign name="login" size={24} color="white" />
+              </Link>
+            </XStack>
+          ),
         }}
       />
       <ScrollView pt={"$4"} px={"$4"}>
@@ -50,34 +59,7 @@ const Home = () => {
           <Button borderColor={"$green10Dark"}>Show 3 settled-up groups</Button>
         </YStack>
       </ScrollView>
-        
     </YStack>
   );
 };
 export default Home;
-const Header = () => {
-  const inset = useSafeAreaInsets();
-  return (
-    <XStack
-      px="$4"
-      borderBottomColor={"$borderColor"}
-      borderBottomWidth={1}
-      pb="$4"
-      elevation={3}
-      style={{ paddingTop: inset.top + 20 }}
-      jc={"flex-end"}
-      bg="$background"
-      gap="$5"
-    >
-      <Pressable>
-        <AntDesign name="search1" size={24} color="white" />
-      </Pressable>
-      <Pressable>
-        <AntDesign name="addusergroup" size={24} color="white" />
-      </Pressable>
-      <Link href={"/(auth)/login"} asChild>
-        <AntDesign name="login" size={24} color="white" />
-      </Link>
-    </XStack>
-  );
-};
