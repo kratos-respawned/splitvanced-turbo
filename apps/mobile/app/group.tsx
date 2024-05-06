@@ -24,9 +24,6 @@ const Group = () => {
 
       <Stack.Screen
         options={{
-          headerShown: true,
-          headerTitle: "",
-          headerBackground: () => <XStack bg="$background" />,
           headerRight: () => (
             <Pressable>
               <Ionicons name="settings-outline" size={25} color="white" />

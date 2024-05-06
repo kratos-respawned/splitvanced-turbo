@@ -12,12 +12,6 @@ const ExpenseScreen = () => {
       <StatusBar style="light" />
       <Stack.Screen
         options={{
-          headerShown: true,
-          headerTitle: "Auto",
-          headerTitleAlign: "left",
-          headerBackground: () => <XStack bg="$background" />,
-          headerTintColor: "white",
-          headerShadowVisible: true,
           headerRight: () => (
             <XStack gap="$4">
               <Pressable>

@@ -1,36 +1,27 @@
+import { useTimer } from "@/hooks/useTimer";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OPTSchema } from "@splitvanced/validators/src/authSchema";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Alert, Keyboard, TextInput, TouchableWithoutFeedback } from "react-native";
+import {  Keyboard, TouchableWithoutFeedback } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { OtpInput } from "react-native-otp-entry";
 import { Button, H3, YStack, SizableText, Form, Input, Text } from "tamagui";
 
 const OTPScreen = () => {
   const [value, setValue] = useState("");
-  const [timer, setTimer] = useState(0);
-  useEffect(()=>{
-    const interval = setInterval(()=>{
-      setTimer(timer-1);
-    },1000)
-    return ()=>clearInterval(interval);
-  },[timer])
   const { control, handleSubmit, formState } = useForm<OPTSchema>({
     resolver: zodResolver(OPTSchema),
   });
+  const [timer,reset,isPending]=useTimer(10);
   const onSubmit = (data: OPTSchema) => {
-    console.log(data);
-    setTimer(10);
-    // if (value.length === 4) {
-    //   console.log("Submit");
-    // } else {
-    //   Alert.alert("Invalid OTP", "Please enter a valid OTP");
-    // }
+    reset();
   };
   return (
     <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
+    
     <YStack px={"$3"} flex={1} backgroundColor={"$background"}>
+    
       <KeyboardAwareScrollView
         scrollsToTop
         showsVerticalScrollIndicator={false}
@@ -87,10 +78,12 @@ const OTPScreen = () => {
           variant="outlined"
           mx={"auto"}
           mt={"$2"}
-          disabled
-            onPress={()=>console.log("Resend Code")}
+          disabled={isPending}
+            onPress={()=>reset()}
         >
-          <Text color={"$gray10"}>Resend Code in {}</Text>
+          {
+            isPending ? <Text color={"$gray10"}>Resend Code in {timer}</Text> : "Resend Code"
+          }
         </Button>
 
         <Button

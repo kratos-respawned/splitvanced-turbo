@@ -11,10 +11,6 @@ const Home = () => {
       <StatusBar style="light" />
       <Stack.Screen
         options={{
-          headerShown: true,
-          headerTitle: "",
-          headerBackground: () => <YStack bg="$background"  />,
-          headerShadowVisible: true,
           headerRight: () => (
             <XStack
               gap="$5"
