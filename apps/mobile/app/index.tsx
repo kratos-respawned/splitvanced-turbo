@@ -7,7 +7,7 @@ import { StatusBar } from "expo-status-bar";
 import { GroupSettingsPopover } from "@/components/group-settings-popover";
 const Home = () => {
   return (
-    <YStack flex={1} backgroundColor={"$background"}>
+    <YStack flex={1} backgroundColor={"$background"} borderTopColor={"$backgroundFocus"} borderTopWidth="$0.5">
       <StatusBar style="light" />
       <Stack.Screen
         options={{

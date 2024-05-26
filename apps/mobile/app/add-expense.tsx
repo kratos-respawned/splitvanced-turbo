@@ -1,12 +1,16 @@
-import { Ionicons } from "@expo/vector-icons"
+import { SheetDemo } from "@/components/bottom-modal";
+import {   Ionicons, MaterialIcons } from "@expo/vector-icons"
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { Stack } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import { Pressable } from "react-native"
-import { Input, Square, XStack, YStack } from "tamagui"
+import { useState } from "react"
+import { Keyboard, Pressable } from "react-native"
+import { Button, Input, Square, Text, XStack, YStack } from "tamagui"
 
 const ExpenseMenu=()=>{
+  const [text, setText] = useState('');
     return (
-        <YStack flex={1} backgroundColor={"$background"}>
+        <YStack onPress={Keyboard.dismiss} flex={1} backgroundColor={"$background"}>
       <StatusBar style="light" />
 
       <Stack.Screen
@@ -15,27 +19,38 @@ const ExpenseMenu=()=>{
           headerTitle: "Add expense",
           headerBackground: () => <XStack bg="$background" />,
           headerRight: () => (
-            <Pressable>
+            <Pressable onPress={()=>console.log(text)}>
               <Ionicons name="checkmark" size={25} color="white" />
             </Pressable>
           ),
           headerTintColor: "white",
         }}
       />
-      <YStack ai={"center"} gap="$4">
-        <XStack gap="$3" mt="$6">
-            <Square bg={"$backgroundFocus"} px="$2.5" borderRadius={"$2"}>
+      <YStack px="$5" gap="$4">
+        
+        <XStack mt="$6" gap="$3" >
+            <Square bg={"$backgroundFocus"} width={"$4"} borderRadius={"$2"}>
             <Ionicons name="receipt-outline" size={24} color="white" />
             </Square>
-            <Input w={"$18"}  placeholder="Expense name" />
+            <Input unstyled borderBottomColor={"$backgroundFocus"} flex={1} borderBottomWidth={"$1"} h="$4" w={"$18"} color={"white"} fontSize={"$5"} onChangeText={(e)=>setText(e)}  placeholder="Expense name" />
         </XStack>
         <XStack gap="$3" >
-            <Square bg={"$backgroundFocus"} px="$2.5" borderRadius={"$2"}>
-            <Ionicons name="receipt-outline" size={24} color="white" />
+            <Square bg={"$backgroundFocus"} width={"$4"} borderRadius={"$2"}>
+            <MaterialIcons name="currency-rupee" size={24} color="white" />
             </Square>
-            <Input w={"$18"}  placeholder="Expense name" />
+            <Input unstyled borderBottomColor={"$backgroundFocus"} flex={1} borderBottomWidth={"$1"} h="$4" w={"$18"} color={"white"} fontSize={"$7"} fontWeight={"$8"} onChangeText={(e)=>setText(e)}  placeholder="0.00" />
+        </XStack>
+        <XStack ai={"center"} gap="$3">
+          {/* <Text fontSize={"$5"}>Paid by</Text> */}
+          {/* <Button>you</Button> */}
+          {/* <Text fontSize={"$5"}>an split</Text> */}
+          {/* <Button>equally</Button> */}
+          <SheetDemo/>
         </XStack>
       </YStack>
+        <Button position="absolute" bottom="$4" ai={"center"} left="$4">
+        <FontAwesome6 name="user-group" size={17} color="white" />
+          Goa Trip</Button>
         </YStack>
     )
 }
