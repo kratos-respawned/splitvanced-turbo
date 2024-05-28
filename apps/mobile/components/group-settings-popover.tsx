@@ -12,22 +12,21 @@ import {
 
 export const GroupSettingsPopover = () => {
   return (
-    <Popover  size="$5" allowFlip placement="bottom">
+    <Popover size="$5" allowFlip placement="bottom">
       <Popover.Trigger asChild p="$2">
         <Pressable>
           <AntDesign name="setting" color={"white"} size={25} />
         </Pressable>
       </Popover.Trigger>
-
       <Popover.Content
-
+        w={250}
         borderWidth={1}
         p="$2"
-        pl="$3"
+        px="$4"
         top={50}
         borderColor="$borderColor"
-        enterStyle={{ x: -100, opacity: 0 }}
-        exitStyle={{ x: -10, opacity: 0 }}
+        enterStyle={{ y: -100, opacity: 0 }}
+        exitStyle={{ y: 0, opacity: 0 }}
         elevate
         animation={[
           "quick",
@@ -40,6 +39,7 @@ export const GroupSettingsPopover = () => {
       >
         <Popover.Arrow borderWidth={1} borderColor="$borderColor" />
         <RadioGroup
+          w={225}
           aria-labelledby="Select one item"
           defaultValue="1"
           name="form"

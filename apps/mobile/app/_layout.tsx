@@ -25,6 +25,6 @@ export default function Layout() {
       <YStack flex={1} bg="$background">
       <Stack screenOptions={{ animation:"ios" , headerShown: true,headerBackground: () => <YStack flex={1}   />, headerTitleAlign: "left", headerTitle:"", headerTintColor: "white",  }}/>
       </YStack>
-    </TamaguiProvider>
+     </TamaguiProvider>
   );
 }
