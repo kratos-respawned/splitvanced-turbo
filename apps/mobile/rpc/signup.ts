@@ -6,7 +6,7 @@ export const signup = async (data: SignUpSchema): Promise<SignUpResponse> => {
   try {
     const response = await server.post("/api/auth/signup", data);
     const result = SignUpResponse.parse(response.data);
-    console.log(result);
+    
     if (result.status === "403") {
       await save("token", result.token);
       return {
@@ -16,7 +16,7 @@ export const signup = async (data: SignUpSchema): Promise<SignUpResponse> => {
     }
     return result;
   } catch (error) {
-    console.log(error);
+    
     return {
       status: "500",
       message: "Internal Server Error",

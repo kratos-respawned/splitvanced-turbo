@@ -64,7 +64,7 @@ export const SignUp = async (unsafe: unknown): Promise<SignUpResponse> => {
       verified: false,
       otp_expiry: new Date(Date.now() + 60000).toISOString(),
     });
-    console.log(NewUser);
+    
     return {
       status: "403",
       token: "token",

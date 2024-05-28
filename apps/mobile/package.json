@@ -22,6 +22,7 @@
     "@tamagui/animations-moti": "^1.99.1",
     "@tamagui/babel-plugin": "^1.99.1",
     "@tamagui/font-inter": "^1.99.1",
+    "@tamagui/lucide-icons": "^1.99.1",
     "@tamagui/shorthands": "^1.99.1",
     "@tamagui/themes": "^1.99.1",
     "expo": "51",

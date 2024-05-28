@@ -19,7 +19,7 @@ const ExpenseMenu = () => {
         options={{
           headerTitle: "Add expense",
           headerRight: () => (
-            <Pressable onPress={() => console.log(text)}>
+            <Pressable onPress={() => null}>
               <Ionicons name="checkmark" size={25} color="white" />
             </Pressable>
           ),
@@ -32,6 +32,9 @@ const ExpenseMenu = () => {
           </Square>
           <Input
             unstyled
+            focusStyle={{
+              borderBottomColor:"$green10Dark"
+            }}
             borderBottomColor={"$backgroundFocus"}
             flex={1}
             borderBottomWidth={"$1"}
@@ -49,6 +52,10 @@ const ExpenseMenu = () => {
           </Square>
           <Input
             unstyled
+            inputMode="decimal"
+            focusStyle={{
+              borderBottomColor:"$green10Dark"
+            }}
             borderBottomColor={"$backgroundFocus"}
             flex={1}
             borderBottomWidth={"$1"}
@@ -68,7 +75,7 @@ const ExpenseMenu = () => {
           <PaidForSheet/>
         </XStack>
       </YStack>
-      <Button position="absolute" bottom="$4" ai={"center"} left="$4">
+      <Button position="absolute" bottom="$4" bg="$green9Dark" ai={"center"} left="$4">
         <FontAwesome6 name="user-group" size={17} color="white" />
         Goa Trip
       </Button>

@@ -1,6 +1,6 @@
-import { AntDesign } from "@expo/vector-icons";
+import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { useState } from "react";
-import { ScrollView } from "react-native";
+import { ToastAndroid } from "react-native";
 import {
   XStack,
   YStack,
@@ -11,31 +11,44 @@ import {
   CheckboxProps,
   SizeTokens,
   Checkbox,
+  AnimatePresence,
+  Circle,
+  ScrollView,
 } from "tamagui";
 import { BottomSheet } from "./bottom-modal";
 import { Text } from "tamagui";
+import { Pressable } from "./Pressable";
+import { LinearGradient } from "tamagui/linear-gradient";
 
 export const PaidBySheet = () => {
   const [open, setOpen] = useState(false);
+  const list = ["Avichal", "You", "Harsh", "Javed", "Pallab"];
+  const [paidBy, setPaidBy] = useState("You");
+  const changePaidBy = (person: string) => {
+    setPaidBy(person);
+  };
   return (
     <BottomSheet>
-      <BottomSheet.Trigger setOpen={setOpen}>you</BottomSheet.Trigger>
+      <BottomSheet.Trigger setOpen={setOpen}>{paidBy}</BottomSheet.Trigger>
       <BottomSheet.Sheet open={open} setOpen={setOpen} snapPoints={[400]}>
         <XStack flex={1}>
           <YStack flex={1}>
             <H3>Who Paid?</H3>
-            <ScrollView>
-              <RadioGroup
-                mt="$3"
-                aria-labelledby="Select one item"
-                defaultValue="1"
-                name="form"
-              >
-                <RadioItemWithLabel id="1" value="1" label="You" />
-                <RadioItemWithLabel id="2" value="2" label="Harsh" />
-                <RadioItemWithLabel id="3" value="3" label="Pallab" />
-                <RadioItemWithLabel id="4" value="4" label="Javed" />
-              </RadioGroup>
+            <ScrollView mt="$3">
+              <YStack gap="$2">
+                {list.map((person, index) => {
+                  return (
+                    <RadioItemWithLabel
+                      paidBy={paidBy}
+                      setPaidBy={changePaidBy}
+                      id={person}
+                      closeSheet={() => setOpen(false)}
+                      key={person}
+                      label={person}
+                    />
+                  );
+                })}
+              </YStack>
             </ScrollView>
           </YStack>
         </XStack>
@@ -46,43 +59,75 @@ export const PaidBySheet = () => {
 
 export const RadioItemWithLabel = ({
   id,
-  value,
+  closeSheet,
   label,
+  paidBy,
+  setPaidBy,
 }: {
   id: string;
-  value: string;
   label: string;
+  closeSheet: () => void;
+  paidBy: string;
+  setPaidBy: (name: string) => void;
 }) => {
   return (
-    <XStack flex={1} alignItems="center" gap="$4">
-      <RadioGroup.Item value={value} id={id} size={"$4"}>
-        <RadioGroup.Indicator />
-      </RadioGroup.Item>
-      <Label flex={1} fontSize={"$6"} htmlFor={id}>
-        {label}
-      </Label>
-    </XStack>
+    <Pressable
+      backgroundColor={id === paidBy ? "$backgroundFocus" : "$background"}
+      px="$4"
+      borderRadius={"$5"}
+      py="$3"
+      onPress={() => {
+        setPaidBy(id);
+        closeSheet();
+      }}
+    >
+      <XStack flex={1} alignItems="center" gap="$4">
+        <Circle overflow="hidden">
+          <LinearGradient
+            width="$5"
+            height="$5"
+            borderRadius="$4"
+            colors={["$red10", "$yellow10"]}
+            start={[0, 1]}
+            end={[0, 0]}
+          />
+        </Circle>
+        <Text fontSize={"$5"} flex={1}>
+          {label}
+        </Text>
+        {/* {itemList.includes(id) && <CheckIcon />} */}
+      </XStack>
+    </Pressable>
   );
 };
 
 export const PaidForSheet = () => {
   const [open, setOpen] = useState(false);
   const list = ["Avichal", "You", "Harsh", "Javed", "Pallab"];
+  const [paidFor, setPaidFor] = useState<string[]>([]);
+  const pushItem = (val: string) => {
+    paidFor.includes(val)
+      ? setPaidFor((items) => items.filter((item) => item !== val))
+      : setPaidFor((items) => [...items, val]);
+  };
   return (
     <BottomSheet>
       <BottomSheet.Trigger setOpen={setOpen}>you</BottomSheet.Trigger>
       <BottomSheet.Sheet open={open} setOpen={setOpen} snapPoints={[400]}>
         <XStack flex={1}>
           <YStack flex={1}>
-            <H3>Paid For?</H3>
-            <H6 mt="$2">Equally</H6>
-            <ScrollView>
-              <YStack>
+            <H3>
+              Paid For? <Text fontSize={"$5"}>(Equally)</Text>{" "}
+            </H3>
+            <ScrollView mt="$2">
+              <YStack gap="$2">
                 {list.map((value, index) => (
                   <CheckboxWithLabel
+                    itemList={paidFor}
+                    pushItem={pushItem}
                     key={value + index.toString()}
                     label={value}
-                    id={value + index.toString()}
+                    id={index.toString()}
                     size="$3"
                   />
                 ))}
@@ -99,18 +144,42 @@ export function CheckboxWithLabel({
   size,
   label,
   id,
+  itemList,
+  pushItem,
   ...checkboxProps
-}: CheckboxProps & { size: SizeTokens; label: string; id: string }) {
+}: CheckboxProps & {
+  size: SizeTokens;
+  label: string;
+  id: string;
+  itemList: string[];
+  pushItem: (val: string) => void;
+}) {
   return (
-    <XStack flex={1} alignItems="center" gap="$4">
-      <Checkbox id={id} size={size} {...checkboxProps}>
-        <Checkbox.Indicator>
-          {/* <AntDesign name="check" /> */}
-        </Checkbox.Indicator>
-      </Checkbox>
-      <Label flex={1} fontSize={"$6"} >
-        {label}
-      </Label>
-    </XStack>
+    <Pressable
+      px="$4"
+      py="$3"
+      backgroundColor={
+        itemList.includes(id) ? "$backgroundFocus" : "$background"
+      }
+      borderRadius={"$5"}
+      onPress={() => pushItem(id)}
+    >
+      <XStack flex={1} alignItems="center" gap="$4">
+        <Circle overflow="hidden">
+          <LinearGradient
+            width="$5"
+            height="$5"
+            borderRadius="$4"
+            colors={["$red10", "$yellow10"]}
+            start={[0, 1]}
+            end={[0, 0]}
+          />
+        </Circle>
+        <Text fontSize={"$5"} flex={1}>
+          {label}
+        </Text>
+        {itemList.includes(id) && <CheckIcon />}
+      </XStack>
+    </Pressable>
   );
 }
