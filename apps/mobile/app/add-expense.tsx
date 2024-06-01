@@ -1,19 +1,21 @@
-import { PaidBySheet, PaidForSheet } from "@/components/add-expense-bottom-sheets";
+import {
+  PaidBySheet,
+  PaidForSheet,
+} from "@/components/add-expense-bottom-sheets";
 import { BottomSheet } from "@/components/bottom-modal";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {  Keyboard, Pressable } from "react-native";
-import { YStack, XStack, Square, Input, Text,Button } from "tamagui";
-
+import { Keyboard, Pressable } from "react-native";
+import { YStack, XStack, Square, Input, Text, Button } from "tamagui";
 
 const ExpenseMenu = () => {
   const [text, setText] = useState("");
   return (
     <YStack onPress={Keyboard.dismiss} flex={1} backgroundColor={"$background"}>
-      <StatusBar style="light" />
+      
 
       <Stack.Screen
         options={{
@@ -33,7 +35,7 @@ const ExpenseMenu = () => {
           <Input
             unstyled
             focusStyle={{
-              borderBottomColor:"$green10Dark"
+              borderBottomColor: "$green10Dark",
             }}
             borderBottomColor={"$backgroundFocus"}
             flex={1}
@@ -54,7 +56,7 @@ const ExpenseMenu = () => {
             unstyled
             inputMode="decimal"
             focusStyle={{
-              borderBottomColor:"$green10Dark"
+              borderBottomColor: "$green10Dark",
             }}
             borderBottomColor={"$backgroundFocus"}
             flex={1}
@@ -72,10 +74,16 @@ const ExpenseMenu = () => {
           <Text fontSize={"$5"}>Paid by</Text>
           <PaidBySheet />
           <Text fontSize={"$5"}>an split</Text>
-          <PaidForSheet/>
+          <PaidForSheet />
         </XStack>
       </YStack>
-      <Button position="absolute" bottom="$4" bg="$green9Dark" ai={"center"} left="$4">
+      <Button
+        position="absolute"
+        bottom="$4"
+        bg="$green9Dark"
+        ai={"center"}
+        left="$4"
+      >
         <FontAwesome6 name="user-group" size={17} color="white" />
         Goa Trip
       </Button>
@@ -83,4 +91,3 @@ const ExpenseMenu = () => {
   );
 };
 export default ExpenseMenu;
-

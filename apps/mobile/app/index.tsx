@@ -8,7 +8,6 @@ import { GroupSettingsPopover } from "@/components/group-settings-popover";
 const Home = () => {
   return (
     <YStack flex={1} backgroundColor={"$background"} borderTopColor={"$backgroundFocus"} borderTopWidth="$0.5">
-      <StatusBar style="light" />
       <Stack.Screen
         options={{
           headerRight: () => (
@@ -18,9 +17,9 @@ const Home = () => {
               <Pressable>
                 <AntDesign name="search1" size={24} color="white" />
               </Pressable>
-              <Pressable>
+              <Link href={"/add-group"}  asChild>
                 <AntDesign name="addusergroup" size={24} color="white" />
-              </Pressable>
+              </Link>
               <Link href={"/login"} asChild>
                 <AntDesign name="login" size={24} color="white" />
               </Link>

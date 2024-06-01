@@ -9,7 +9,6 @@ import { LinearGradient } from "tamagui/linear-gradient";
 const ExpenseScreen = () => {
   return (
     <YStack flex={1} backgroundColor={"$background"}>
-      <StatusBar style="light" />
       <Stack.Screen
         options={{
           headerRight: () => (

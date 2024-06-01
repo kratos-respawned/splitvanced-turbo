@@ -20,7 +20,7 @@ import ExpenseCard from "@/components/expense-card";
 const Group = () => {
   return (
     <YStack flex={1} backgroundColor={"$background"}>
-      <StatusBar style="light" />
+      
 
       <Stack.Screen
         options={{

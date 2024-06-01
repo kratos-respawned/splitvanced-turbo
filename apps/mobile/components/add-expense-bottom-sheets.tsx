@@ -112,7 +112,7 @@ export const PaidForSheet = () => {
   };
   return (
     <BottomSheet>
-      <BottomSheet.Trigger setOpen={setOpen}>you</BottomSheet.Trigger>
+      <BottomSheet.Trigger setOpen={setOpen}>Equally</BottomSheet.Trigger>
       <BottomSheet.Sheet open={open} setOpen={setOpen} snapPoints={[400]}>
         <XStack flex={1}>
           <YStack flex={1}>
