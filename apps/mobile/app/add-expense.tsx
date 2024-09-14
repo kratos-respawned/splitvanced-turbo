@@ -119,6 +119,7 @@ const ExpenseMenu = () => {
         ai={"center"}
         left="$4"
       >
+        {/* TODO :: create a popover to change group */}
         <FontAwesome6 name="user-group" size={17} color="white" />
         Goa Trip
       </Button>

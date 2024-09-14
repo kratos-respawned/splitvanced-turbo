@@ -1,29 +1,45 @@
 import { Pressable } from "@/components/Pressable";
+import { toast } from "@/components/toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { newGroupSchema } from "@splitvanced/validators/src/groupSchema";
 import { Heart, Home, List, Plane } from "@tamagui/lucide-icons";
-import type { IconProps } from "@tamagui/helpers-icon";
 import { Stack } from "expo-router";
-import { NamedExoticComponent, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Keyboard } from "react-native";
-import { Input, ScrollView, View } from "tamagui";
-import { Square, Text, XStack, YStack } from "tamagui";
+import { Input, ScrollView, Square, Text, XStack, YStack } from "tamagui";
+import { Label } from "../components/Label";
 const CategoryList = {
   Trip: Plane,
   Home: Home,
   Couple: Heart,
   Other: List,
 };
-type Categories = keyof typeof CategoryList;
-const Categories: Categories[] = ["Trip", "Home", "Couple", "Other"];
+export type Categories = keyof typeof CategoryList;
+export const Categories: Categories[] = ["Home", "Trip", "Couple", "Other"];
 const AddGroupScreen = () => {
-  const [category, setCategory] = useState<Categories>("Other");
-  const Icon = CategoryList[category];
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<newGroupSchema>({
+    resolver: zodResolver(newGroupSchema),
+    defaultValues: {
+      name: "",
+      category: "Home",
+    },
+  });
+  const onSubmit = (data: newGroupSchema) => {
+    toast(JSON.stringify(data));
+  };
+  const Icon = CategoryList[getValues("category")];
   return (
     <>
       <Stack.Screen
         options={{
           headerTitle: "Create a group",
           headerRight: () => (
-            <Pressable py="$2">
+            <Pressable py="$2" onPress={handleSubmit(onSubmit)}>
               <Text color={"$green10Dark"}>Done</Text>
             </Pressable>
           ),
@@ -46,36 +62,50 @@ const AddGroupScreen = () => {
           >
             {<Icon />}
           </Square>
-          <YStack>
-            <Text fontSize={"$3"}>Group name</Text>
-            <Input
-              unstyled
-              focusStyle={{
-                borderBottomColor: "$green10Dark",
-              }}
-              borderBottomColor={"$backgroundFocus"}
-              flex={1}
-              borderBottomWidth={"$1"}
-              h="$3"
-              w={"$18"}
-              color={"white"}
-              fontSize={"$4"}
-            />
-          </YStack>
+
+          <Controller
+            name="name"
+            control={control}
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <YStack>
+                <Text fontSize={"$3"}>Group name</Text>
+                <Input
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  unstyled
+                  focusStyle={{
+                    borderBottomColor: "$green10Dark",
+                  }}
+                  borderBottomColor={"$backgroundFocus"}
+                  flex={1}
+                  borderBottomWidth={"$1"}
+                  h="$3"
+                  w={"$18"}
+                  color={"white"}
+                  fontSize={"$4"}
+                />
+              </YStack>
+            )}
+          />
         </XStack>
+
+        {errors.name && <Text color={"$red10"}>{errors.name.message}</Text>}
         <YStack>
           <Text mt="$4">Type</Text>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal py="$4">
             {Categories.map((item) => (
               <Label
                 key={item}
-                currentCategory={category}
-                setCategory={() => setCategory(item)}
+                control={control}
                 Icon={CategoryList[item]}
                 title={item}
               />
             ))}
           </ScrollView>
+          {errors.category && (
+            <Text color={"$red10"}>{errors.category.message}</Text>
+          )}
         </YStack>
       </YStack>
     </>
@@ -83,35 +113,4 @@ const AddGroupScreen = () => {
 };
 export default AddGroupScreen;
 
-const Label = ({
-  Icon,
-  title,
-  currentCategory,
-  setCategory,
-}: {
-  Icon: NamedExoticComponent<IconProps>;
-  title: Categories;
-  currentCategory: Categories;
-  setCategory: () => void;
-}) => {
-  return (
-    <Pressable
-      backgroundColor={
-        currentCategory === title ? "$green10Dark" : "$background"
-      }
-      borderColor={"white"}
-      borderWidth={"$0.75"}
-      onPress={setCategory}
-      flexDirection="row"
-      ai={"center"}
-      ml="$3"
-      gap="$3"
-      px="$3"
-      py="$2"
-      borderRadius={"$6"}
-    >
-      <Icon size={"$1"} />
-      <Text>{title}</Text>
-    </Pressable>
-  );
-};
+

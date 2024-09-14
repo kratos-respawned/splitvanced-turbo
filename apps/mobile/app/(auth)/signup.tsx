@@ -1,7 +1,8 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema } from "@splitvanced/validators/src/authSchema";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   Checkbox,
@@ -13,12 +14,11 @@ import {
   XStack,
   YStack,
 } from "tamagui";
-import { Link, router } from "expo-router";
 
 import { FontAwesome6 } from "@expo/vector-icons";
 
 import { signup } from "@/rpc/signup";
-import { TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const SignUpScreen = () => {
@@ -157,16 +157,23 @@ const SignUpScreen = () => {
             Show Password
           </Label>
         </XStack>
-        {/* <Form.Trigger asChild> */}
+        <Form.Trigger asChild>
         <Button
-          onPress={() => router.push("/(auth)/otp")}
           mt={"$4"}
           elevationAndroid={5}
           backgroundColor={"$green10Dark"}
         >
           Submit
         </Button>
-        {/* </Form.Trigger> */}
+        </Form.Trigger>
+        <Button
+          onPress={() => router.push("/(auth)/otp")}
+          mt={"$4"}
+          elevationAndroid={5}
+          backgroundColor={"$green10Dark"}
+        >
+          Test
+        </Button>
       </Form>
       <Link  href={"/(auth)/login"} asChild >
         <Text color={"white"} textAlign="center" mt={"$3"}>
