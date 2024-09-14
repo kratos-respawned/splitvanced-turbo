@@ -1,22 +1,15 @@
-import { Link, Stack, router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import ExpenseCard from "@/components/expense-card";
+import { Ionicons } from "@expo/vector-icons";
+import { Link, Stack } from "expo-router";
+import { FlatList, Pressable } from "react-native";
 import {
   Button,
   H3,
-  H4,
   ScrollView,
   Text,
-  View,
   XStack,
-  YStack,
+  YStack
 } from "tamagui";
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
-import { FlatList, Pressable } from "react-native";
-import ExpenseCard from "@/components/expense-card";
 const Group = () => {
   return (
     <YStack flex={1} backgroundColor={"$background"}>

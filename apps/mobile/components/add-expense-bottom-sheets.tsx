@@ -1,35 +1,44 @@
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { useState } from "react";
-import { ToastAndroid } from "react-native";
+import { Control, useController } from "react-hook-form";
 import {
-  XStack,
-  YStack,
-  H3,
-  RadioGroup,
-  H6,
-  Label,
   CheckboxProps,
-  SizeTokens,
-  Checkbox,
-  AnimatePresence,
   Circle,
+  H3,
   ScrollView,
+  SizeTokens,
+  Text,
+  XStack,
+  YStack
 } from "tamagui";
-import { BottomSheet } from "./bottom-modal";
-import { Text } from "tamagui";
-import { Pressable } from "./Pressable";
 import { LinearGradient } from "tamagui/linear-gradient";
+import { Pressable } from "./Pressable";
+import { BottomSheet } from "./bottom-modal";
 
-export const PaidBySheet = () => {
+export const PaidBySheet = ({
+  control
+}:{
+  
+  control:Control<{
+    name: string;
+    amount: number;
+    paidBy: string;
+    paidFor: string[];
+}, any>
+}) => {
   const [open, setOpen] = useState(false);
   const list = ["Avichal", "You", "Harsh", "Javed", "Pallab"];
-  const [paidBy, setPaidBy] = useState("You");
+  const {field}=useController({
+    control,
+    name:"paidBy",
+  })
   const changePaidBy = (person: string) => {
-    setPaidBy(person);
+    field.onChange(person)
   };
   return (
     <BottomSheet>
-      <BottomSheet.Trigger setOpen={setOpen}>{paidBy}</BottomSheet.Trigger>
+      
+      <BottomSheet.Trigger setOpen={setOpen}>{field.value}</BottomSheet.Trigger>
       <BottomSheet.Sheet open={open} setOpen={setOpen} snapPoints={[400]}>
         <XStack flex={1}>
           <YStack flex={1}>
@@ -39,7 +48,7 @@ export const PaidBySheet = () => {
                 {list.map((person, index) => {
                   return (
                     <RadioItemWithLabel
-                      paidBy={paidBy}
+                      paidBy={field.value}
                       setPaidBy={changePaidBy}
                       id={person}
                       closeSheet={() => setOpen(false)}
@@ -101,14 +110,27 @@ export const RadioItemWithLabel = ({
   );
 };
 
-export const PaidForSheet = () => {
+export const PaidForSheet = ({
+  control
+}: {
+  control:Control<{
+    name: string;
+    amount: number;
+    paidBy: string;
+    paidFor: string[];
+}, any>
+}) => {
   const [open, setOpen] = useState(false);
+  const {field} =useController({
+    control,
+    name:"paidFor"
+  })
+  // TODO :: fetch list from server
   const list = ["Avichal", "You", "Harsh", "Javed", "Pallab"];
-  const [paidFor, setPaidFor] = useState<string[]>([]);
   const pushItem = (val: string) => {
-    paidFor.includes(val)
-      ? setPaidFor((items) => items.filter((item) => item !== val))
-      : setPaidFor((items) => [...items, val]);
+    field.value.includes(val)?
+    field.onChange(field.value.filter((item)=>item!==val)):
+    field.onChange([...field.value,val])
   };
   return (
     <BottomSheet>
@@ -119,11 +141,13 @@ export const PaidForSheet = () => {
             <H3>
               Paid For? <Text fontSize={"$5"}>(Equally)</Text>{" "}
             </H3>
+            {/* debug */}
+            <Text>{field.value}</Text>
             <ScrollView mt="$2">
               <YStack gap="$2">
                 {list.map((value, index) => (
                   <CheckboxWithLabel
-                    itemList={paidFor}
+                    itemList={field.value}
                     pushItem={pushItem}
                     key={value + index.toString()}
                     label={value}

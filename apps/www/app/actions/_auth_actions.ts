@@ -8,6 +8,10 @@ import {
   SignUpSchema,
 } from "@splitvanced/validators/authValidator";
 import { DrizzleError, and, eq } from "drizzle-orm";
+
+
+// TODO : migrate to ZSA
+
 export const Login = async (unsafe: unknown): Promise<SignInResponse> => {
   const safeData = SignInSchema.safeParse(unsafe);
   if (!safeData.success)

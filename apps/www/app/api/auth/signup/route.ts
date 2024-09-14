@@ -1,4 +1,4 @@
-import { SignUp } from "@/app/_auth_actions";
+import { SignUp } from "@/app/actions/_auth_actions";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 export async function POST(req: Request) {
